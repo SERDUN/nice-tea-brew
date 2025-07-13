@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TeaService } from "./tea.service";
 import { BrewCreateDto, BrewUpdateDto, TeaUpdateDto } from "./dto";
-import { ZBody } from "./decoretors/zbody.decorator";
+import { ZBody } from "../../decorators/zbody.decorator";
 import { Throttle } from "@nestjs/throttler";
 import { Public } from "../../decorators/guard";
+import { ZQuery } from "../../decorators/zpagination.decorator";
+import { Pagination, PaginationQuerySchema } from "../../dto/pagination.schema";
 
 @Controller('tea')
 export class TeaController {
@@ -16,8 +18,8 @@ export class TeaController {
 
     @Public()
     @Get()
-    async getBrewing(@Query('minRating') minRating?: number, @Query('pageSize') pageSize: number = 10, @Query('page') page: number = 1) {
-        return this.service.getBrewing(minRating,pageSize, page);
+    async getBrewing(@ZQuery(PaginationQuerySchema) pagination: Pagination, @Query('minRating') minRating?: number) {
+        return this.service.getBrewing(minRating, pagination.pageSize, pagination.page);
     }
 
     @Get(':id')
