@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TeaModule } from './features/tea/tea.module';
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { APP_GUARD } from "@nestjs/core";
+import { ApiKeyGuard } from "./decorators/guard";
 
 @Module({
     imports: [TeaModule,
@@ -22,7 +23,12 @@ import { APP_GUARD } from "@nestjs/core";
         {
             provide: APP_GUARD,
             useClass: ThrottlerGuard,
-        },],
+        },
+        {
+            provide: APP_GUARD,
+            useClass: ApiKeyGuard
+        }
+    ],
 })
 export class AppModule {
 }

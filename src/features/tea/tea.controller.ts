@@ -3,6 +3,7 @@ import { TeaService } from "./tea.service";
 import { BrewCreateDto, BrewUpdateDto, TeaUpdateDto } from "./dto";
 import { ZBody } from "./decoretors/zbody.decorator";
 import { Throttle } from "@nestjs/throttler";
+import { Public } from "../../decorators/guard";
 
 @Controller('tea')
 export class TeaController {
@@ -13,6 +14,7 @@ export class TeaController {
         this.service = service;
     }
 
+    @Public()
     @Get()
     async getBrewing() {
         return this.service.getBrewing();

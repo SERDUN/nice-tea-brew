@@ -13,6 +13,7 @@ Accept: application/json
 ### Create brew
 POST http://localhost:3000/api/tea
 Content-Type: application/json
+x-api-key: im_rd_student
 
 {
   "name": "green tea",
