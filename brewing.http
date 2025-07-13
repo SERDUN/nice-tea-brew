@@ -1,0 +1,43 @@
+### Get all brews
+GET http://localhost:3000/api/tea
+Accept: application/json
+
+###
+
+### Get brew by id
+GET http://localhost:3000/api/tea/1
+Accept: application/json
+
+###
+
+### Create brew
+POST http://localhost:3000/api/tea
+Content-Type: application/json
+
+{
+  "name": "green tea",
+  "origin": "china",
+  "rating": 4,
+  "brewTemp": 74,
+  "notes": "Floral aroma"
+}
+
+###
+
+### Update brew (replace brewId with actual value)
+PATCH http://localhost:3000/api/tea/1
+Content-Type: application/json
+
+{
+  "beans": "Colombia",
+  "method": "espresso",
+  "brewedAt": "2024-07-06T12:30:00.000Z",
+  "time": 30,
+  "rating": 5,
+  "notes": "Strong body"
+}
+
+###
+
+### Delete brew
+DELETE http://localhost:3000/api/brews/{{brewId}}

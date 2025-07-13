@@ -1,19 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { TeaEntities } from "./entities";
+import { Tea } from "./dto/tea.dto";
 
 @Injectable()
 export class TeaService {
-    private data: TeaEntities[] = [];
+    private data: Tea[] = [];
 
-    async getBrewing(): Promise<TeaEntities[]> {
+    async getBrewing(): Promise<Tea[]> {
         return this.data;
     }
 
-    async getBrewingById(id: string): Promise<TeaEntities | null> {
+    async getBrewingById(id: string): Promise<Tea | null> {
         return this.data.find(brew => brew.id === id) || null;
     }
 
-    async createBrewing(brew: Omit<TeaEntities, "id">): Promise<TeaEntities> {
+    async createBrewing(brew: Omit<Tea, "id">): Promise<Tea> {
         return new Promise((resolve) => {
             const newBrew = {...brew, id: (Math.random() * 1000).toString()};
             this.data.push(newBrew);
@@ -21,7 +22,7 @@ export class TeaService {
         });
     }
 
-    async updateBrewing(id: string, brew: Omit<TeaEntities, "id">): Promise<TeaEntities | null> {
+    async updateBrewing(id: string,brew: Omit<Partial<Tea>, 'id'>): Promise<Tea | null> {
         return new Promise((resolve) => {
             const index = this.data.findIndex(b => b.id === id);
             if (index === -1) {
