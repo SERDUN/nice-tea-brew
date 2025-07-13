@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TeaModule } from './features/tea/tea.module';
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
-import { APP_GUARD } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { ApiKeyGuard } from "./decorators/guard";
+import { TimingInterceptor } from "./decorators/timing.interceptor";
 
 @Module({
     imports: [TeaModule,
@@ -18,7 +19,8 @@ import { ApiKeyGuard } from "./decorators/guard";
         }),
     ],
     controllers: [AppController],
-    providers: [AppService,
+    providers: [
+        Logger,
         AppService,
         {
             provide: APP_GUARD,
@@ -27,7 +29,11 @@ import { ApiKeyGuard } from "./decorators/guard";
         {
             provide: APP_GUARD,
             useClass: ApiKeyGuard
-        }
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: TimingInterceptor,
+        },
     ],
 })
 export class AppModule {
