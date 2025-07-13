@@ -18,7 +18,7 @@ x-api-key: im_rd_student
 {
   "name": "green tea",
   "origin": "china",
-  "rating": 4,
+  "rating": 10,
   "brewTemp": 74,
   "notes": "Floral aroma"
 }
