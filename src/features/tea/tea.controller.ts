@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { TeaService } from "./tea.service";
 import { BrewCreateDto, BrewUpdateDto, TeaUpdateDto } from "./dto";
 import { ZBody } from "./decoretors/zbody.decorator";
+import { Throttle } from "@nestjs/throttler";
 
 @Controller('tea')
 export class TeaController {
@@ -24,6 +25,7 @@ export class TeaController {
 
 
     @Post()
+    @Throttle({default: {limit: 10, ttl: 60000}})
     async createBrewing(@ZBody(BrewCreateDto) @Body() dto: BrewCreateDto) {
         return this.service.createBrewing(dto);
     }
