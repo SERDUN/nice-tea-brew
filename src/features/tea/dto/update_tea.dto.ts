@@ -1,6 +1,5 @@
-import { TeaSchema } from "./tea.dto";
 import { z } from 'zod';
-import { BrewCreateDto } from "./create_tea.dto";
+import { TeaSchema } from "./tea.dto";
 
-export const TeaUpdateDto = BrewCreateDto.partial().extend({id: z.string()});
-export type BrewUpdateDto = z.infer<typeof TeaUpdateDto>;
+export const TeaUpdateDtoScheme = TeaSchema.partial().extend({id: z.string().optional()});
+export type BrewUpdateDto = z.infer<typeof TeaUpdateDtoScheme>;
