@@ -1,5 +1,5 @@
 export class TeaEntities {
-    id: number;
+    id: string;
     name: string;
     origin: number;
     rating: string;
