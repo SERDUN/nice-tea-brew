@@ -1,12 +1,13 @@
 ### Get all brews
-GET http://localhost:3000/api/tea?minRating=9&page=2&pageSize=5
+GET http://localhost:3000/api/tea?minRating=9&page=2&pageSize=1
 Accept: application/json
 
 ###
 
 ### Get brew by id
-GET http://localhost:3000/api/tea/1
+GET http://localhost:3000/api/tea/XoNMtzrWxop2G9YJ2mhHw
 Accept: application/json
+x-api-key: im_rd_student
 
 ###
 
@@ -26,16 +27,12 @@ x-api-key: im_rd_student
 ###
 
 ### Update brew (replace brewId with actual value)
-PATCH http://localhost:3000/api/tea/1
+PUT http://localhost:3000/api/tea/XoNMtzrWxop2G9YJ2mhHw
+x-api-key: im_rd_student
 Content-Type: application/json
 
 {
-  "beans": "Colombia",
-  "method": "espresso",
-  "brewedAt": "2024-07-06T12:30:00.000Z",
-  "time": 30,
-  "rating": 5,
-  "notes": "Strong body"
+  "name": "dark tea"
 }
 
 ###
