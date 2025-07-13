@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { TeaEntities } from "./entities";
 import { Tea } from "./dto/tea.dto";
 
 @Injectable()
