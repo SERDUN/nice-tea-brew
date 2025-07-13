@@ -5,8 +5,24 @@ import { Tea } from "./dto/tea.dto";
 export class TeaService {
     private data: Tea[] = [];
 
-    async getBrewing(): Promise<Tea[]> {
-        return this.data;
+    async getBrewing(
+        minRating?: number,
+        pageSize: number = 10,
+        page: number = 1
+    ): Promise<{ data: Tea[]; total: number; page: number; pageSize: number }> {
+        const filteredData = minRating
+            ? this.data.filter(brew => brew.rating != null && brew.rating >= minRating)
+            : this.data;
+
+        const startIndex = (page - 1) * pageSize;
+        const data = filteredData.slice(startIndex, startIndex + pageSize);
+
+        return {
+            data,
+            total: filteredData.length,
+            page,
+            pageSize
+        };
     }
 
     async getBrewingById(id: string): Promise<Tea | null> {
@@ -21,7 +37,7 @@ export class TeaService {
         });
     }
 
-    async updateBrewing(id: string,brew: Omit<Partial<Tea>, 'id'>): Promise<Tea | null> {
+    async updateBrewing(id: string, brew: Omit<Partial<Tea>, 'id'>): Promise<Tea | null> {
         return new Promise((resolve) => {
             const index = this.data.findIndex(b => b.id === id);
             if (index === -1) {

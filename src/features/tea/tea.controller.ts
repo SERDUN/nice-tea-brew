@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TeaService } from "./tea.service";
 import { BrewCreateDto, BrewUpdateDto, TeaUpdateDto } from "./dto";
 import { ZBody } from "./decoretors/zbody.decorator";
@@ -16,8 +16,8 @@ export class TeaController {
 
     @Public()
     @Get()
-    async getBrewing() {
-        return this.service.getBrewing();
+    async getBrewing(@Query('minRating') minRating?: number, @Query('pageSize') pageSize: number = 10, @Query('page') page: number = 1) {
+        return this.service.getBrewing(minRating,pageSize, page);
     }
 
     @Get(':id')
