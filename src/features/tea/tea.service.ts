@@ -29,8 +29,7 @@ export class TeaService {
         return this.repository.update(id, brew);
     }
 
-    async deleteBrewing(id: string): Promise<{ success: boolean; id: string }> {
-        const success = this.repository.delete(id);
-        return {success, id};
+    async deleteBrewing(id: string): Promise<void> {
+        this.repository.delete(id);
     }
 }

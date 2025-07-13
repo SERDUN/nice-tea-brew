@@ -1,5 +1,5 @@
 ### Get all brews
-GET http://localhost:3000/api/tea?minRating=9&page=2&pageSize=1
+GET http://localhost:3000/api/tea?minRating=10&page=1&pageSize=1
 Accept: application/json
 
 ###
@@ -38,4 +38,5 @@ Content-Type: application/json
 ###
 
 ### Delete brew
-DELETE http://localhost:3000/api/brews/{{brewId}}
+DELETE http://localhost:3000/api/tea/3jDbxv7qPD0g6--rC5AZ8
+x-api-key: im_rd_student

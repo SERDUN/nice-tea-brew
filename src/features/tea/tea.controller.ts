@@ -39,8 +39,8 @@ export class TeaController {
         return this.service.updateBrewing(id, dto);
     }
 
-    @Delete('tea/:id')
+    @Delete(':id')
     async deleteBrewing(@Param('id') id: string) {
-        return this.service.deleteBrewing(id);
+        await this.service.deleteBrewing(id);
     }
 }
