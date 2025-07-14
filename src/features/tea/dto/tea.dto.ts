@@ -8,4 +8,10 @@ export const TeaSchema = z.object({
     notes: z.string().max(20).optional(),
 });
 
+
+export const BrewCreateDtoScheme = TeaSchema.omit({id: true});
+export const TeaUpdateDtoScheme = TeaSchema.partial().extend({id: z.string().optional()});
+
 export type Tea = z.infer<typeof TeaSchema>;
+export type BrewCreateDto = z.infer<typeof BrewCreateDtoScheme>;
+export type BrewUpdateDto = z.infer<typeof TeaUpdateDtoScheme>;

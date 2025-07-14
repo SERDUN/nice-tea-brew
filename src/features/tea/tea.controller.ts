@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { TeaService } from "./tea.service";
-import { BrewCreateDto, BrewCreateDtoScheme, BrewUpdateDto, TeaUpdateDtoScheme } from "./dto";
 import { ZBody } from "../../decorators/zbody.decorator";
 import { Throttle } from "@nestjs/throttler";
 import { Public } from "../../decorators/guard";
 import { ZQuery } from "../../decorators/zpagination.decorator";
 import { Pagination, PaginationQuerySchema } from "../../dto/pagination.schema";
+import { BrewCreateDto, BrewCreateDtoScheme, BrewUpdateDto, TeaUpdateDtoScheme } from "./dto/tea.dto";
 
 @Controller('tea')
 export class TeaController {
