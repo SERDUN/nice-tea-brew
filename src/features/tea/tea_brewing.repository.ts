@@ -1,28 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { Tea } from './dto/tea.dto';
+import { TeaBrewingDto } from './dto/tea_brewing.dto';
 import { nanoid } from "nanoid";
 
 @Injectable()
 export class TeaBrewingRepository {
-    private data: Tea[] = [];
+    private data: TeaBrewingDto[] = [];
 
-    findFiltered(minRating?: number): Tea[] {
+    findFiltered(minRating?: number): TeaBrewingDto[] {
         return minRating
             ? this.data.filter(brew => brew.rating != null && brew.rating >= minRating)
             : this.data;
     }
 
-    findById(id: string): Tea | null {
+    findById(id: string): TeaBrewingDto | null {
         return this.data.find(brew => brew.id === id) || null;
     }
 
-    create(brew: Omit<Tea, 'id'>): Tea {
+    create(brew: Omit<TeaBrewingDto, 'id'>): TeaBrewingDto {
         const newBrew = {...brew, id: nanoid()};
         this.data.push(newBrew);
         return newBrew;
     }
 
-    update(id: string, brew: Omit<Partial<Tea>, 'id'>): Tea | null {
+    update(id: string, brew: Omit<Partial<TeaBrewingDto>, 'id'>): TeaBrewingDto | null {
         const index = this.data.findIndex(b => b.id === id);
         if (index === -1) return null;
 

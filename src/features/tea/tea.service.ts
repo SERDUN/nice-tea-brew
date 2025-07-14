@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Tea } from './dto/tea.dto';
+import { TeaBrewingDto } from './dto';
 import { TeaBrewingRepository } from './tea_brewing.repository';
 import { paginate, PaginatedResult } from "../../utils";
 
@@ -12,20 +12,20 @@ export class TeaService {
         minRating?: number,
         pageSize = 10,
         page = 1
-    ): Promise<PaginatedResult<Tea>> {
+    ): Promise<PaginatedResult<TeaBrewingDto>> {
         const filteredData = this.repository.findFiltered(minRating);
         return paginate(filteredData, page, pageSize);
     }
 
-    async getBrewingById(id: string): Promise<Tea | null> {
+    async getBrewingById(id: string): Promise<TeaBrewingDto | null> {
         return this.repository.findById(id);
     }
 
-    async createBrewing(brew: Omit<Tea, 'id'>): Promise<Tea> {
+    async createBrewing(brew: Omit<TeaBrewingDto, 'id'>): Promise<TeaBrewingDto> {
         return this.repository.create(brew);
     }
 
-    async updateBrewing(id: string, brew: Omit<Partial<Tea>, 'id'>): Promise<Tea | null> {
+    async updateBrewing(id: string, brew: Omit<Partial<TeaBrewingDto>, 'id'>): Promise<TeaBrewingDto | null> {
         return this.repository.update(id, brew);
     }
 

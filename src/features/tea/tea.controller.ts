@@ -5,7 +5,8 @@ import { Throttle } from "@nestjs/throttler";
 import { Public } from "../../decorators/guard";
 import { ZQuery } from "../../decorators/zpagination.decorator";
 import { Pagination, PaginationQuerySchema } from "../../dto/pagination.schema";
-import { BrewCreateDto, BrewCreateDtoScheme, BrewUpdateDto, TeaUpdateDtoScheme } from "./dto/tea.dto";
+import { TeaBrewingCreateDto, TeaBrewingUpdateDto } from "./dto";
+import { TeaBrewingCreateScheme, TeaBrewingUpdateScheme } from './schemes';
 
 @Controller('tea')
 export class TeaController {
@@ -30,12 +31,12 @@ export class TeaController {
 
     @Post()
     @Throttle({default: {limit: 10, ttl: 60000}})
-    async createBrewing(@ZBody(BrewCreateDtoScheme) @Body() dto: BrewCreateDto) {
+    async createBrewing(@ZBody(TeaBrewingCreateScheme) @Body() dto: TeaBrewingCreateDto) {
         return this.service.createBrewing(dto);
     }
 
     @Put(':id')
-    async updateBrewing(@Param('id') id: string, @ZBody(TeaUpdateDtoScheme) @Body() dto: BrewUpdateDto) {
+    async updateBrewing(@Param('id') id: string, @ZBody(TeaBrewingUpdateScheme) @Body() dto: TeaBrewingUpdateDto) {
         return this.service.updateBrewing(id, dto);
     }
 
