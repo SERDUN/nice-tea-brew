@@ -3,16 +3,19 @@ import {
     ExecutionContext,
     BadRequestException,
 } from '@nestjs/common';
-import { ZodSchema } from 'zod';
+import { ZodType } from 'zod';
 
-export const ZBody = (schema: ZodSchema) =>
-    createParamDecorator(
+export function ZBody<T extends ZodType<any, any, any>>(schema: T) {
+    return createParamDecorator(
         async (_: unknown, context: ExecutionContext) => {
             const request = context.switchToHttp().getRequest();
-            try {
-                return await schema.parseAsync(request.body);
-            } catch (error: any) {
-                throw new BadRequestException(error.format?.() ?? error.message);
+            const result = await schema.safeParseAsync(request.body);
+
+            if (!result.success) {
+                throw new BadRequestException(result.error.format());
             }
+
+            return result.data;
         },
     )();
+}

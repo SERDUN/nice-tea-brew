@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext, BadRequestException } from '@nestjs/common';
-import { ZodSchema } from 'zod';
+import { ZodType } from 'zod';
 
-export function ZQuery<T extends ZodSchema<any>>(schema: T) {
+export function ZQuery<T extends ZodType<any, any, any>>(schema: T) {
     return createParamDecorator((_, ctx: ExecutionContext) => {
         const request = ctx.switchToHttp().getRequest();
         const result = schema.safeParse(request.query);
